@@ -1,6 +1,6 @@
 # DSH Desktop Workbench plugin
 
-`dsh-desktop-workbench` is a plugin for [DSH Desktop](https://github.com/anywhere-labs/dsh-desktop), written against that repository's plugin guide: it uses only the public `desktopProfiles` Host service and gives the workbench deployment its desktop-side profile and service control.
+`dsh-desktop-workbench` is a plugin based on the [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop) repository and written against its plugin guide: it uses only the public `desktopProfiles` Host service and gives the workbench deployment its desktop-side profile and service control.
 
 Its Web counterpart is [`dsh-plugin-workbench`](https://github.com/hzxwonder-dsh-plugins/dsh-plugin-workbench). That repository owns the composition itself (the official `time-context` and `schedule` rows plus session full-text search) and ships a local service supervisor, `bin/local.mjs`, which starts and stops its own Harness service. Inside DSH Desktop neither belongs to a plugin: the shell owns the service and the profile, so the supervisor has no counterpart here. What the desktop side needs is the shell's own control surface — read the active profile, see which profiles the launcher can layer itself over, and request one restart-safe switch — and that is what this plugin provides.
 
@@ -52,7 +52,7 @@ A profile patch layer can override the composition package name (default `dsh-pl
 npm test
 ```
 
-Nine unit tests cover configuration and profile-name validation, profile summary mapping, the selectability facts, the composition read, read-only actions that never touch the selection state, a switch that persists exactly one validated target, approval plus read-only and Session gating, the command grammar and its usage output, and result rendering. A real switch still needs a live DSH Desktop run; the procedure is in [`docs/desktop-contract.md`](docs/desktop-contract.md).
+Ten unit tests cover configuration and profile-name validation, profile summary mapping, the selectability facts, the composition read, read-only actions that never touch the selection state, a switch that persists exactly one validated target, approval plus read-only and Session gating, the command grammar and its usage output, result rendering, and the bundle patch the package declares. A real switch still needs a live DSH Desktop run; the procedure is in [`docs/desktop-contract.md`](docs/desktop-contract.md).
 
 ## License
 

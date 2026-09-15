@@ -1,8 +1,9 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp, mkdir, rm, writeFile} from 'node:fs/promises';
+import {mkdtemp, mkdir, readFile, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import yaml from 'js-yaml';
 import {apply, DESKTOP_WORKBENCH_USAGE, formatWorkbenchResult} from '../index.js';
 import {assertProfileName, compositionStatus, selectableProfile, summarizeProfiles, validateConfig} from '../lib/profiles.js';
 
@@ -195,4 +196,10 @@ test('the rendered summary names the active profile, its composition, and the re
   assert.match(text, /web \(active\): web · on-disk/);
   assert.match(text, /broken: web · on-disk · manifest declares an unknown field/);
   assert.match(text, /selected: desktop \(restart required\)/);
+});
+
+test('the bundle patch inserts exactly this plugin row', async () => {
+  const patch = yaml.load(await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8'));
+  assert.deepEqual(patch, [{insert: [{id: 'dsh-desktop-workbench', name: 'dsh-desktop-workbench'}]}]);
+  assert.deepEqual(JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8')).dsh.bundle.patch, './cordis.patch.yml');
 });

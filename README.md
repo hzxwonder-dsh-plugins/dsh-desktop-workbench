@@ -1,6 +1,6 @@
 # DSH Desktop Workbench 插件
 
-`dsh-desktop-workbench` 是面向 [DSH Desktop](https://github.com/anywhere-labs/dsh-desktop) 的插件，按该仓库的插件规范编写：只使用宿主公开的 `desktopProfiles` Host service，为 workbench 部署提供桌面端的 profile 与服务控制。
+`dsh-desktop-workbench` 是基于 [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop) 仓库的插件，按该仓库的插件规范编写：只使用宿主公开的 `desktopProfiles` Host service，为 workbench 部署提供桌面端的 profile 与服务控制。
 
 Web 端的对应仓库是 [`dsh-plugin-workbench`](https://github.com/hzxwonder-dsh-plugins/dsh-plugin-workbench)。该仓库负责组合本身（官方 `time-context`、`schedule` 与会话全文搜索），并带一个本地服务监督器 `bin/local.mjs`，用于启动和停止自己的 Harness 服务。在 DSH Desktop 里这两件事都不属于插件：服务与 profile 由桌面壳持有，监督器没有对应物。桌面端需要的是壳自己的控制面——读取活动 profile、看清哪些 profile 可以被壳叠加载入、并请求一次可重启的安全切换——这正是本插件提供的能力。
 
@@ -52,7 +52,7 @@ profile 的 patch 层可以覆盖组合包名（默认 `dsh-plugin-workbench`）
 npm test
 ```
 
-9 项单元测试覆盖：配置与 profile 名校验、profile 摘要映射、可选择性判据、组合落位读取、只读动作不触碰选择状态、切换只持久化一个已校验目标、approval 与只读与会话门控、命令语法与用法输出、结果渲染。桌面实例上的真实切换需要在 DSH Desktop 内实测，步骤见 [`docs/desktop-contract.md`](docs/desktop-contract.md)。
+10 项单元测试覆盖：配置与 profile 名校验、profile 摘要映射、可选择性判据、组合落位读取、只读动作不触碰选择状态、切换只持久化一个已校验目标、approval 与只读与会话门控、命令语法与用法输出、结果渲染，以及 bundle patch 与 `dsh.bundle.patch` 落点。桌面实例上的真实切换需要在 DSH Desktop 内实测，步骤见 [`docs/desktop-contract.md`](docs/desktop-contract.md)。
 
 ## 许可证
 
