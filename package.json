@@ -16,6 +16,7 @@
     "README.md",
     "README.en.md",
     "LICENSE",
+    "NOTICE",
     "docs"
   ],
   "scripts": {
